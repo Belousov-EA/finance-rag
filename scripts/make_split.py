@@ -1,23 +1,13 @@
-import json
 import random
 from pathlib import Path
+
+from src.utils.jsonl_utils import read_jsonl, write_jsonl
 
 SEED = 42
 TRAIN_SIZE = 50
 
-SOURCE = Path("data/raw/financebench/data/financebench_document_information.jsonl")
+SOURCE = Path("data/raw/financebench/data/financebench_open_source.jsonl")
 OUTPUT_DIR = Path("data/splits")
-
-
-def read_jsonl(path: Path) -> list[dict]:
-    with path.open("r", encoding="utf-8") as f:
-        return [json.loads(line) for line in f]
-
-
-def write_jsonl(data: list[dict], path: Path) -> None:
-    with path.open("w", encoding="utf-8") as f:
-        for row in data:
-            f.writelines(json.dumps(row, ensure_ascii=False))
 
 
 def main() -> None:
