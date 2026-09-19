@@ -8,11 +8,10 @@ Relevant items are defined at the page level:
 Retrieved chunks are deduplicated into ranked unique pages before metric calculation.
 
 ### Results
-
 | Experiment | Retrieval | Chunk size | Overlap | Reranker | Hit@1 | Hit@5 | Hit@10 | Recall@10 | MRR@10 | p50 latency | p95 latency |
 |---|---|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|
 | E1 | BM25 | 400 | 60 | — | 0.1000 | 0.1400 | 0.1800 | 0.1800 | 0.1199 | 3.1 ms | 6.1 ms |
-| E2 | Dense (`BAAI/bge-base-en-v1.5`) | 400 | 60 | — | — | — | — | — | — | — | — |
+| E2 | Dense (`BAAI/bge-m3`, Cloud.ru) | 400 | 60 | — | 0.1400 | 0.3000 | 0.3200 | 0.2900 | 0.1973 | 275.0 ms | 543.3 ms |
 | E3 | Hybrid (BM25 + Dense + RRF) | 400 | 60 | — | — | — | — | — | — | — | — |
 | E4 | Hybrid + Reranker | 400 | 60 | `BAAI/bge-reranker-base` | — | — | — | — | — | — | — |
 
@@ -26,3 +25,18 @@ Retrieved chunks are deduplicated into ranked unique pages before metric calcula
 - Evaluation cutoff: 10 unique pages
 - Evaluation set: 50 questions
 - Metrics implementation verified against `ranx`
+
+### E2 — Dense retrieval baseline
+
+- Vector database: Qdrant
+- Dense retrieval model: `BAAI/bge-m3`
+- Embedding inference: Cloud.ru API
+- Embedding dimension: 1024
+- Similarity metric: cosine similarity
+- Chunk size: 400 tokens
+- Chunk overlap: 60 tokens
+- Retrieval limit before page deduplication: 50 chunks
+- Evaluation cutoff: 10 unique pages
+- Evaluation set: 50 questions
+- Query embedding latency is included in retrieval latency
+- Metrics calculated with `ranx`
