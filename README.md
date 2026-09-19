@@ -12,7 +12,7 @@ Retrieved chunks are deduplicated into ranked unique pages before metric calcula
 |---|---|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|
 | E1 | BM25 | 400 | 60 | — | 0.1000 | 0.1400 | 0.1800 | 0.1800 | 0.1199 | 3.1 ms | 6.1 ms |
 | E2 | Dense (`BAAI/bge-m3`, Cloud.ru) | 400 | 60 | — | 0.1400 | 0.3000 | 0.3200 | 0.2900 | 0.1973 | 275.0 ms | 543.3 ms |
-| E3 | Hybrid (BM25 + Dense + RRF) | 400 | 60 | — | — | — | — | — | — | — | — |
+| E3 | Hybrid (BM25 + Dense + RRF) | 400 | 60 | — | 0.1200 | 0.2200 | 0.3000 | 0.2800 | 0.1616 | 295.7 ms | 502.3 ms |
 | E4 | Hybrid + Reranker | 400 | 60 | `BAAI/bge-reranker-base` | — | — | — | — | — | — | — |
 
 ### E1 — BM25 baseline
@@ -36,6 +36,24 @@ Retrieved chunks are deduplicated into ranked unique pages before metric calcula
 - Chunk size: 400 tokens
 - Chunk overlap: 60 tokens
 - Retrieval limit before page deduplication: 50 chunks
+- Evaluation cutoff: 10 unique pages
+- Evaluation set: 50 questions
+- Query embedding latency is included in retrieval latency
+- Metrics calculated with `ranx`
+
+### E3 — Hybrid retrieval with RRF
+
+- Vector database: Qdrant
+- Sparse retrieval: BM25
+- Dense retrieval model: `BAAI/bge-m3`
+- Embedding inference: Cloud.ru API
+- Fusion method: Reciprocal Rank Fusion (RRF)
+- RRF constant: 60
+- Fusion level: chunk-level
+- Chunk size: 400 tokens
+- Chunk overlap: 60 tokens
+- Retrieval limit per retriever: 50 chunks
+- Page deduplication is applied after RRF
 - Evaluation cutoff: 10 unique pages
 - Evaluation set: 50 questions
 - Query embedding latency is included in retrieval latency
