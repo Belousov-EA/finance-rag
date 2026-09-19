@@ -1,12 +1,36 @@
-# Python-generated files
+# Python
+.venv/
 __pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
+*.py[cod]
 
-# Virtual environments
-.venv
+# Tool caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
 
-*/__pycache__/
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+
+# Secrets / local config
+.env
+.env.*
+!.env.example
+
+# Qdrant persistent storage
+infra/qdrant/storage/
+qdrant_storage/
+
+# Downloaded / generated data
+data/raw/
+data/processed/
+
+# Logs
+*.log
+logs/
+
+# Local model/cache directories, если появятся в проекте
+.cache/
+models/
