@@ -112,3 +112,28 @@ matching its Hit@5 and Hit@10.
 This suggests that lexical retrieval provides useful complementary evidence,
 but equal-weight fusion overemphasizes the weaker BM25 ranking for this
 dataset.
+
+#### Reranker candidate pool tuning
+
+After tuning the hybrid retriever, the reranker candidate pool size was varied
+while keeping the first-stage retrieval configuration fixed:
+
+- RRF constant: `60`
+- Dense weight: `1.0`
+- BM25 weight: `0.25`
+- Source retrieval limit: `50`
+
+| Candidate pool | Hit@1 | Hit@5 | Hit@10 | Recall@10 | MRR@10 | p50 latency | p95 latency |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 10 | 0.2000 | 0.3000 | 0.3200 | 0.3000 | 0.2422 | 712.1 ms | 890.9 ms |
+| 20 | 0.2000 | 0.3600 | 0.4200 | 0.4000 | 0.2742 | 717.5 ms | 910.4 ms |
+| **30** | **0.2000** | **0.3800** | **0.4800** | **0.4600** | **0.2742** | **818.2 ms** | **951.9 ms** |
+| 50 | 0.2200 | 0.4000 | 0.4800 | 0.4700 | 0.2879 | 1022.8 ms | 1211.7 ms |
+
+Increasing the reranker candidate pool from 10 to 30 substantially improves
+retrieval quality. Increasing it further from 30 to 50 provides only a small
+additional gain, while increasing median end-to-end latency by approximately
+25%.
+
+A candidate pool of 30 was therefore selected as the quality/latency operating
+point for the final pipeline.
