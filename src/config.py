@@ -10,6 +10,7 @@ DENSE_COLLECTION = "financebench_dense_bge_m3_400_60"
 
 BM25_VECTOR_NAME = "bm25"
 
+BASE_URL = "https://foundation-models.api.cloud.ru"
 EMBEDDING_MODEL = "BAAI/bge-m3"
 RERANKER_MODEL = "BAAI/bge-reranker-v2-m3"
 

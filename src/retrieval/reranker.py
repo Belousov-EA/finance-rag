@@ -4,10 +4,9 @@ import httpx
 from dotenv import load_dotenv
 from openai import OpenAI
 
-load_dotenv()
+from src.config import BASE_URL, RERANKER_MODEL
 
-MODEL_NAME = "BAAI/bge-reranker-v2-m3"
-BASE_URL = "https://foundation-models.api.cloud.ru"
+load_dotenv()
 
 
 class Reranker:
@@ -32,7 +31,7 @@ class Reranker:
             path="/score",
             cast_to=httpx.Response,
             body={
-                "model": MODEL_NAME,
+                "model": RERANKER_MODEL,
                 "encoding_format": "float",
                 "text_1": query,
                 "text_2": documents,

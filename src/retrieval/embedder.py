@@ -3,9 +3,11 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
+from src.config import EMBEDDING_MODEL
+
 load_dotenv()
 
-MODEL_NAME = "BAAI/bge-m3"
+
 EMBEDDING_SIZE = 1024
 
 BASE_URL = "https://foundation-models.api.cloud.ru/v1"
@@ -20,7 +22,7 @@ class Embedder:
 
     def encode(self, texts: list[str]) -> list[list[float]]:
         response = self.client.embeddings.create(
-            model=MODEL_NAME,
+            model=EMBEDDING_MODEL,
             input=texts,
         )
 
