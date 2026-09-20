@@ -1,9 +1,12 @@
+from collections.abc import Iterator
 from pathlib import Path
 
 import pymupdf
 
+from src.types import Page
 
-def iter_pdf_pages(path: Path):
+
+def iter_pdf_pages(path: Path) -> Iterator[Page]:
     doc = pymupdf.open(path)
 
     for page_idx, page in enumerate(doc):
@@ -20,7 +23,7 @@ def iter_pdf_pages(path: Path):
         }
 
 
-def iter_corpus_pages(pdf_dir: Path):
+def iter_corpus_pages(pdf_dir: Path) -> Iterator[Page]:
     pdf_paths = sorted(pdf_dir.glob("*.pdf"))
 
     for idx, pdf_path in enumerate(pdf_paths, start=1):

@@ -1,5 +1,6 @@
 from src.retrieval.hybrid_retriever import HybridRetriever
 from src.retrieval.reranker import Reranker
+from src.types import RerankedSearchResult
 
 
 class RerankedRetriever:
@@ -12,7 +13,7 @@ class RerankedRetriever:
         self,
         query: str,
         limit: int = 50,
-    ) -> list[dict]:
+    ) -> list[RerankedSearchResult]:
         candidates = self.hybrid.search(
             query=query,
             limit=self.candidate_limit,

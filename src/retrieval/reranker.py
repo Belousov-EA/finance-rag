@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 from src.config import BASE_URL, RERANKER_MODEL
+from src.types import HybridSearchResult, RerankedSearchResult
 
 load_dotenv()
 
@@ -19,9 +20,9 @@ class Reranker:
     def rerank(
         self,
         query: str,
-        results: list[dict],
+        results: list[HybridSearchResult],
         limit: int | None = None,
-    ) -> list[dict]:
+    ) -> list[RerankedSearchResult]:
         if not results:
             return []
 
@@ -40,7 +41,7 @@ class Reranker:
 
         scores = response.json()["data"]
 
-        reranked = []
+        reranked: list[RerankedSearchResult] = []
 
         for item in scores:
             idx = item["index"]

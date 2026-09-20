@@ -1,5 +1,6 @@
 from src.retrieval.bm25_retriever import BM25Retriever
 from src.retrieval.dense_retriever import DenseRetriever
+from src.types import HybridSearchResult
 
 
 class HybridRetriever:
@@ -12,7 +13,7 @@ class HybridRetriever:
         self,
         query: str,
         limit: int = 50,
-    ) -> list[dict]:
+    ) -> list[HybridSearchResult]:
         bm25_results = self.bm25.search(
             query=query,
             limit=limit,
@@ -23,7 +24,7 @@ class HybridRetriever:
             limit=limit,
         )
 
-        fused = {}
+        fused: dict[str, HybridSearchResult] = {}
 
         for results in (bm25_results, dense_results):
             for rank, result in enumerate(results, start=1):

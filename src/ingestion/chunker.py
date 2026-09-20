@@ -1,4 +1,8 @@
+from collections.abc import Iterable, Iterator
+
 from transformers import AutoTokenizer
+
+from src.types import Chunk, Page
 
 MODEL_NAME = "BAAI/bge-base-en-v1.5"
 
@@ -6,10 +10,10 @@ tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 
 
 def iter_chunks(
-    pages,
+    pages: Iterable[Page],
     chunk_size: int = 400,
     overlap: int = 60,
-):
+) -> Iterator[Chunk]:
     if overlap >= chunk_size:
         raise ValueError("overlap must be smaller than chunk_size")
 

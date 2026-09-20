@@ -2,6 +2,7 @@ from qdrant_client import QdrantClient
 
 from src.config import DENSE_COLLECTION, QDRANT_URL
 from src.retrieval.embedder import Embedder
+from src.types import SearchResult
 
 
 class DenseRetriever:
@@ -13,7 +14,7 @@ class DenseRetriever:
         self,
         query: str,
         limit: int = 10,
-    ) -> list[dict]:
+    ) -> list[SearchResult]:
         query_vector = self.embedder.encode([query])[0]
 
         response = self.client.query_points(

@@ -1,6 +1,7 @@
 from qdrant_client import QdrantClient, models
 
 from src.config import BM25_COLLECTION, BM25_VECTOR_NAME, QDRANT_URL
+from src.types import SearchResult
 
 
 class BM25Retriever:
@@ -11,7 +12,7 @@ class BM25Retriever:
         self,
         query: str,
         limit: int = 10,
-    ) -> list[dict]:
+    ) -> list[SearchResult]:
         response = self.client.query_points(
             collection_name=BM25_COLLECTION,
             query=models.Document(

@@ -5,6 +5,7 @@ from qdrant_client import QdrantClient, models
 from src.config import BM25_COLLECTION as COLLECTION_NAME
 from src.config import BM25_VECTOR_NAME as VECTOR_NAME
 from src.config import QDRANT_URL
+from src.types import Chunk
 
 
 class BM25Indexer:
@@ -29,7 +30,7 @@ class BM25Indexer:
 
     def index_batch(
         self,
-        batch: list[dict],
+        batch: list[Chunk],
         avg_len: float,
     ) -> None:
         points = []

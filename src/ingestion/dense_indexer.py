@@ -5,6 +5,7 @@ from qdrant_client import QdrantClient, models
 from src.config import DENSE_COLLECTION as COLLECTION_NAME
 from src.config import EMBEDDING_SIZE, QDRANT_URL
 from src.retrieval.embedder import Embedder
+from src.types import Chunk
 
 
 class DenseIndexer:
@@ -27,7 +28,7 @@ class DenseIndexer:
 
         print(f"Created collection: {COLLECTION_NAME}")
 
-    def index_batch(self, batch: list[dict]) -> None:
+    def index_batch(self, batch: list[Chunk]) -> None:
         texts = [chunk["text"] for chunk in batch]
 
         vectors = self.embedder.encode(texts)

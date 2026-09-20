@@ -1,5 +1,10 @@
+from collections.abc import Sequence
+
+from src.types import SearchResult
+
+
 def chunks_to_unique_pages(
-    results: list[dict],
+    results: Sequence[SearchResult],
 ) -> list[tuple[str, int]]:
     pages = []
     seen = set()
