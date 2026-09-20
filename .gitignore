@@ -31,6 +31,8 @@ data/processed/
 *.log
 logs/
 
-# Local model/cache directories, если появятся в проекте
-.cache/
-models/
+# Caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
