@@ -26,18 +26,6 @@ def load_pdf(path: Path) -> list[dict]:
     return pages
 
 
-def load_corpus(pdf_dir: Path) -> list[dict]:
-    pages = []
-
-    pdf_paths = sorted(pdf_dir.glob("*.pdf"))
-
-    for idx, pdf_path in enumerate(pdf_paths, start=1):
-        print(f"[{idx}/{len(pdf_paths)}] {pdf_path.name}")
-        pages.extend(load_pdf(pdf_path))
-
-    return pages
-
-
 def iter_pdf_pages(path: Path):
     doc = pymupdf.open(path)
 
