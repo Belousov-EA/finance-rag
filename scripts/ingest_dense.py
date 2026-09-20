@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from src.config import CHUNK_OVERLAP, CHUNK_SIZE
 from src.ingestion.chunker import iter_chunks
 from src.ingestion.dense_indexer import DenseIndexer
 from src.ingestion.loader import iter_corpus_pages
@@ -7,8 +8,6 @@ from src.utils.batching import batched
 
 PDF_DIR = Path("data/raw/financebench/pdfs")
 
-CHUNK_SIZE = 400
-OVERLAP = 60
 
 # Начнём консервативно для внешнего API.
 BATCH_SIZE = 512
@@ -20,7 +19,7 @@ def create_chunk_stream():
     return iter_chunks(
         pages,
         chunk_size=CHUNK_SIZE,
-        overlap=OVERLAP,
+        overlap=CHUNK_OVERLAP,
     )
 
 

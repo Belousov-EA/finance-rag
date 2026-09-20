@@ -2,10 +2,10 @@ from uuid import NAMESPACE_URL, uuid5
 
 from qdrant_client import QdrantClient, models
 
+from src.config import DENSE_COLLECTION as COLLECTION_NAME
+from src.config import QDRANT_URL
 from src.retrieval.embedder import Embedder
 
-QDRANT_URL = "http://localhost:6333"
-COLLECTION_NAME = "financebench_dense_bge_m3_400_60"
 VECTOR_SIZE = 1024
 
 

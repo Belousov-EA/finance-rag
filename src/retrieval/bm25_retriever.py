@@ -1,10 +1,6 @@
 from qdrant_client import QdrantClient, models
 
-from src.ingestion.bm25_indexer import (
-    COLLECTION_NAME,
-    QDRANT_URL,
-    VECTOR_NAME,
-)
+from src.config import BM25_COLLECTION, BM25_VECTOR_NAME, QDRANT_URL
 
 
 class BM25Retriever:
@@ -17,12 +13,12 @@ class BM25Retriever:
         limit: int = 10,
     ) -> list[dict]:
         response = self.client.query_points(
-            collection_name=COLLECTION_NAME,
+            collection_name=BM25_COLLECTION,
             query=models.Document(
                 text=query,
                 model="Qdrant/bm25",
             ),
-            using=VECTOR_NAME,
+            using=BM25_VECTOR_NAME,
             limit=limit,
             with_payload=True,
         )

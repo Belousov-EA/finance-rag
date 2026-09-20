@@ -1,9 +1,6 @@
 from qdrant_client import QdrantClient
 
-from src.ingestion.dense_indexer import (
-    COLLECTION_NAME,
-    QDRANT_URL,
-)
+from src.config import DENSE_COLLECTION, QDRANT_URL
 from src.retrieval.embedder import Embedder
 
 
@@ -20,7 +17,7 @@ class DenseRetriever:
         query_vector = self.embedder.encode([query])[0]
 
         response = self.client.query_points(
-            collection_name=COLLECTION_NAME,
+            collection_name=DENSE_COLLECTION,
             query=query_vector,
             limit=limit,
             with_payload=True,

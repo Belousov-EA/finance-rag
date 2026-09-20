@@ -2,9 +2,9 @@ from uuid import NAMESPACE_URL, uuid5
 
 from qdrant_client import QdrantClient, models
 
-QDRANT_URL = "http://localhost:6333"
-COLLECTION_NAME = "financebench_bm25_400_60"
-VECTOR_NAME = "bm25"
+from src.config import BM25_COLLECTION as COLLECTION_NAME
+from src.config import BM25_VECTOR_NAME as VECTOR_NAME
+from src.config import QDRANT_URL
 
 
 class BM25Indexer:
