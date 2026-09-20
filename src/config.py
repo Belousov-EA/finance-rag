@@ -14,5 +14,7 @@ BASE_URL = "https://foundation-models.api.cloud.ru"
 EMBEDDING_MODEL = "BAAI/bge-m3"
 RERANKER_MODEL = "BAAI/bge-reranker-v2-m3"
 
+EMBEDDING_SIZE = 1024
+
 CHUNK_SIZE = 400
 CHUNK_OVERLAP = 60
