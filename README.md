@@ -139,3 +139,33 @@ additional gain, while increasing median end-to-end latency by approximately
 
 A candidate pool of 30 was therefore selected as the quality/latency operating
 point for the final pipeline.
+
+#### Failure analysis
+
+A query-level failure analysis was performed on the 50-question development
+split using the selected pipeline configuration.
+
+| Failure / improvement type | Queries |
+|---|---:|
+| Dense hit → Hybrid miss | 1 |
+| Dense miss → Hybrid hit | 1 |
+| Hybrid miss → Reranker hit | 9 |
+| Hybrid hit → Reranker miss | 1 |
+| Relevant page absent from top-30 candidate pool | 24 |
+| Relevant candidate available but absent from reranked top-10 | 2 |
+
+The analysis shows that the main remaining bottleneck is first-stage candidate
+recall rather than reranker quality.
+
+For 24 out of 50 queries, no relevant page was present in the top-30 hybrid
+candidate pool, meaning that the reranker had no opportunity to recover the
+correct result.
+
+When a relevant page was available in the candidate pool, the reranker placed
+a relevant page in the final top-10 for 24 out of 26 queries.
+
+The reranker also recovered 9 queries that were misses in the hybrid top-10,
+while degrading only one previously successful query.
+
+These results suggest that further quality improvements should primarily target
+candidate generation and retrieval recall rather than reranker tuning.
