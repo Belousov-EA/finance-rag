@@ -24,7 +24,7 @@ class BM25Retriever:
             with_payload=True,
         )
 
-        results = []
+        results: list[SearchResult] = []
 
         for point in response.points:
             results.append(
