@@ -14,6 +14,8 @@ Retrieved chunks are deduplicated into ranked unique pages before metric calcula
 | E2 | Dense (`BAAI/bge-m3`, Cloud.ru) | 400 | 60 | — | 0.1400 | 0.3000 | 0.3200 | 0.2900 | 0.1973 | 275.0 ms | 543.3 ms |
 | E3 | Hybrid (BM25 + Dense + RRF) | 400 | 60 | — | 0.1200 | 0.2200 | 0.3000 | 0.2800 | 0.1616 | 295.7 ms | 502.3 ms |
 | E4 | Hybrid + Reranker | 400 | 60 | `BAAI/bge-reranker-v2-m3` | 0.2000 | 0.3800 | 0.4600 | 0.4400 | 0.2811 | 1028.3 ms | 1228.0 ms |
+| E3 tuned | Hybrid tuned (BM25 + Dense + weighted RRF) | 400 | 60 | — | 0.1400 | 0.3000 | 0.3200 | 0.3000 | 0.2012 | 278.0 ms | 371.9 ms |
+| E4 tuned | Hybrid tuned + Reranker (30 candidates) | 400 | 60 | `BAAI/bge-reranker-v2-m3` | 0.2000 | 0.3800 | 0.4800 | 0.4600 | 0.2742 | 818.2 ms | 951.9 ms |
 
 ### E1 — BM25 baseline
 
