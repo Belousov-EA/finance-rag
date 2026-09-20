@@ -1,13 +1,12 @@
 from src.retrieval.bm25_retriever import BM25Retriever
 from src.retrieval.dense_retriever import DenseRetriever
 
-RRF_K = 60
-
 
 class HybridRetriever:
-    def __init__(self) -> None:
+    def __init__(self, rrf_k=60) -> None:
         self.bm25 = BM25Retriever()
         self.dense = DenseRetriever()
+        self.rrf_k = rrf_k
 
     def search(
         self,
@@ -36,7 +35,7 @@ class HybridRetriever:
                         "rrf_score": 0.0,
                     }
 
-                fused[chunk_id]["rrf_score"] += 1.0 / (RRF_K + rank)
+                fused[chunk_id]["rrf_score"] += 1.0 / (self.rrf_k + rank)
 
         return sorted(
             fused.values(),
