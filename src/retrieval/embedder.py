@@ -8,8 +8,6 @@ from src.config import EMBEDDING_MODEL
 load_dotenv()
 
 
-EMBEDDING_SIZE = 1024
-
 BASE_URL = "https://foundation-models.api.cloud.ru/v1"
 
 

@@ -1,13 +1,12 @@
 from src.retrieval.hybrid_retriever import HybridRetriever
 from src.retrieval.reranker import Reranker
 
-CANDIDATE_LIMIT = 50
-
 
 class RerankedRetriever:
-    def __init__(self) -> None:
+    def __init__(self, candidate_limit=50) -> None:
         self.hybrid = HybridRetriever()
         self.reranker = Reranker()
+        self.candidate_limit = candidate_limit
 
     def search(
         self,
@@ -16,7 +15,7 @@ class RerankedRetriever:
     ) -> list[dict]:
         candidates = self.hybrid.search(
             query=query,
-            limit=CANDIDATE_LIMIT,
+            limit=self.candidate_limit,
         )
 
         return self.reranker.rerank(

@@ -3,10 +3,8 @@ from uuid import NAMESPACE_URL, uuid5
 from qdrant_client import QdrantClient, models
 
 from src.config import DENSE_COLLECTION as COLLECTION_NAME
-from src.config import QDRANT_URL
+from src.config import EMBEDDING_SIZE, QDRANT_URL
 from src.retrieval.embedder import Embedder
-
-VECTOR_SIZE = 1024
 
 
 class DenseIndexer:
@@ -22,7 +20,7 @@ class DenseIndexer:
         self.client.create_collection(
             collection_name=COLLECTION_NAME,
             vectors_config=models.VectorParams(
-                size=VECTOR_SIZE,
+                size=EMBEDDING_SIZE,
                 distance=models.Distance.COSINE,
             ),
         )
