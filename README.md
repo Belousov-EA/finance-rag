@@ -77,3 +77,38 @@ Retrieved chunks are deduplicated into ranked unique pages before metric calcula
 - Evaluation set: 50 questions
 - End-to-end retrieval latency includes embedding generation, Qdrant retrieval, RRF fusion, and reranking
 - Metrics calculated with `ranx`
+
+#### Hybrid retrieval tuning
+
+The initial hybrid configuration used equal BM25 and dense weights with
+`rrf_k=60`. This configuration underperformed the dense-only baseline, so a
+small hyperparameter search was performed on the development split.
+
+The dense retrieval weight was fixed at `1.0`, while the RRF constant and BM25
+weight were varied. The source retrieval limit was fixed at 50 chunks per
+retriever.
+
+| Configuration | Hit@1 | Hit@5 | Hit@10 | Recall@10 | MRR@10 |
+|---|---:|---:|---:|---:|---:|
+| `rrf_k=20`, BM25 weight `1.0` | 0.1400 | 0.2600 | 0.3200 | 0.3000 | 0.1879 |
+| `rrf_k=60`, BM25 weight `1.0` | 0.1200 | 0.2200 | 0.3000 | 0.2800 | 0.1616 |
+| `rrf_k=100`, BM25 weight `1.0` | 0.1200 | 0.2200 | 0.3000 | 0.2800 | 0.1599 |
+| `rrf_k=60`, BM25 weight `0.25` | **0.1400** | **0.3000** | **0.3200** | **0.3000** | **0.2012** |
+| `rrf_k=60`, BM25 weight `0.50` | 0.1200 | 0.2800 | 0.3200 | 0.3000 | 0.1814 |
+| `rrf_k=60`, BM25 weight `0.75` | 0.1200 | 0.2600 | 0.3200 | 0.3000 | 0.1737 |
+
+The best development configuration was:
+
+- RRF constant: `60`
+- Dense weight: `1.0`
+- BM25 weight: `0.25`
+- Source retrieval limit: `50`
+
+Reducing the BM25 contribution improved hybrid retrieval substantially.
+The tuned hybrid configuration slightly outperformed the dense-only baseline
+in Recall@10 (`0.3000` vs `0.2900`) and MRR@10 (`0.2012` vs `0.1973`), while
+matching its Hit@5 and Hit@10.
+
+This suggests that lexical retrieval provides useful complementary evidence,
+but equal-weight fusion overemphasizes the weaker BM25 ranking for this
+dataset.

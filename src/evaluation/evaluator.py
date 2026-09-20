@@ -38,8 +38,8 @@ def evaluate_retriever(
         start = perf_counter()
 
         chunk_results = search(
-            query,
-            retrieval_limit,
+            query=query,
+            limit=retrieval_limit,
         )
 
         latencies.append(perf_counter() - start)
